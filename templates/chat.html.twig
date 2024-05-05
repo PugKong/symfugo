@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat{% endblock %}
+
+{% block importmap %}{{ importmap(['app', 'chat']) }}{% endblock %}
+
+{% block body %}
+  <div id="chat" data-websocket-url={{ websocketUrl }} data-token="{{ token }}">
+    <div id="messages"></div>
+    {{ include('_form.html.twig') }}
+  </div>
+{% endblock %}

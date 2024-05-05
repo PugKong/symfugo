@@ -1,0 +1,17 @@
+http://cent.localhost {
+	log
+	encode zstd gzip
+
+	reverse_proxy http://centrifugo:8000
+}
+
+http://symfugo.localhost {
+	log
+	encode zstd gzip
+
+	reverse_proxy php:9000 {
+		transport fastcgi {
+			root /app/public/index.php
+		}
+	}
+}

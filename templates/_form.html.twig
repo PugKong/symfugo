@@ -1,0 +1,9 @@
+<form id="message_form" hx-post="/chat" hx-swap="outerHTML">
+  <div class="mt-2">
+    <label for="message" class="label label-text font-bold">Message</label>
+    <textarea id="message" name="message" class="textarea textarea-bordered w-full" rows="10"></textarea>
+  </div>
+  <div class="mt-2">
+    <input type="submit" class="btn btn-primary" value="Send"/>
+  </div>
+</form>

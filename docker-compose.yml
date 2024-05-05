@@ -1,0 +1,41 @@
+x-centrifugo-keys: &centrifugo-keys
+  CENTRIFUGO_TOKEN_HMAC_SECRET_KEY: f4caeeba-ff22-47c9-a770-a30f3a0b9396
+  CENTRIFUGO_API_KEY: aea8e1d1-2fa3-45c9-9c3d-aeefa00029fc
+
+services:
+  caddy:
+    image: caddy:2.7-alpine
+    ports: [80:80, 443:443]
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
+  centrifugo:
+    image: centrifugo/centrifugo:v5
+    command: centrifugo
+    environment:
+      <<: *centrifugo-keys
+      CENTRIFUGO_ADMIN: true
+      CENTRIFUGO_ADMIN_PASSWORD: password
+      CENTRIFUGO_ADMIN_SECRET: secret
+      CENTRIFUGO_ALLOWED_ORIGINS: http://symfugo.localhost
+    ulimits:
+      nofile: { soft: 65535, hard: 65535 }
+  php:
+    build:
+      context: .
+      target: php-dev
+    environment:
+      <<: *centrifugo-keys
+      CENTRIFUGO_BASE_URL: http://centrifugo:8000
+      CENTRIFUGO_WEBSOCKET_URL: ws://cent.localhost/connection/websocket
+      PHP_IDE_CONFIG: "serverName=symfugo"
+    volumes:
+      - php-home:/home/www-data
+      - ./:/app
+    extra_hosts: [host.docker.internal:host-gateway]
+
+volumes:
+  caddy_data:
+  caddy_config:
+  php-home:
