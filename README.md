@@ -1,3 +1,4 @@
 # Symfugo
 
-A sandbox to play with [Symfony](https://symfony.com/) and [Centrifugo](https://centrifugal.dev/).
+A sandbox to play with [Symfony](https://symfony.com/), [Centrifugo](https://centrifugal.dev/)
+and [Playwright](https://playwright.dev/).

@@ -1,7 +1,11 @@
 {
   "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "@types/node": "^20.12.10",
     "daisyui": "^4.10.5",
     "prettier": "^3.2.5",
-    "tailwindcss": "^3.4.3"
-  }
+    "tailwindcss": "^3.4.3",
+    "testcontainers": "^10.9.0"
+  },
+  "scripts": {}
 }
