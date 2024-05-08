@@ -2,11 +2,12 @@ version: "3"
 
 tasks:
   test:
-    desc: Run containerized integration test with backend coverage
+    desc: Run containerized tests with backend coverage
     cmds:
       - docker build --target=php-e2e --tag symfugo-php-e2e .
       - docker build --target=caddy-e2e --tag symfugo-caddy-e2e .
       - mkdir -p ./var/coverage && rm -rf ./var/coverage/*
       - E2E_USE_CONTAINERS=1 npx playwright test
+      - docker compose run --rm -e XDEBUG_MODE=coverage php ./bin/phpunit --coverage-php ./var/coverage/unit.cov
       - mkdir -p ./var/report && rm -rf ./var/report/*
       - docker compose run --rm php ./vendor/bin/phpcov merge --html var/report var/coverage/
